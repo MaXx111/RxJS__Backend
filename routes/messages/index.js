@@ -13,10 +13,18 @@ router.get('/messages/unread', async (ctx) => {
 module.exports = router;
 
 function createObj() {
+  let array = createArray();
+
+  if(array.length === 0) {
+    return {
+      status: 'empty'
+    }
+  }
+
   return {
     status: "OK",
     timestamp: Date.now(),
-    messages: createArray()
+    messages: array
   }
 }
 
