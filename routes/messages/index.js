@@ -5,7 +5,14 @@ const router = new Router();
 
 router.get('/messages/unread', async (ctx) => {
 
-  let obj = JSON.stringify(createObj());
+  let obj = await JSON.stringify(createObj());
+
+  if(obj == `false`) {
+    ctx.response.status = 500;
+
+    return
+  }
+
   ctx.response.body = obj;
 });
 
@@ -16,9 +23,7 @@ function createObj() {
   let array = createArray();
 
   if(array.length === 0) {
-    return {
-      status: 'empty'
-    }
+    return false
   }
 
   return {
